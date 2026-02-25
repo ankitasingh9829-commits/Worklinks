@@ -1,28 +1,63 @@
-<script>
-    window.onload = function() {
-        const destination = "https://beacons.ai/ankitasingh2910";
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifying Connection...</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .card { width: 85%; max-width: 380px; padding: 40px 20px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #0095f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h1 { font-size: 20px; color: #1a1a1a; margin-bottom: 15px; }
+        p { color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+        .btn { background: #0095f6; color: white; border: none; padding: 16px; border-radius: 15px; font-weight: 700; cursor: pointer; width: 100%; font-size: 16px; text-decoration: none; display: block; box-shadow: 0 5px 15px rgba(0,149,246,0.3); }
+        .status-tag { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
 
-        // 3-second delay to look "safe" to the Instagram bot
-        setTimeout(function() {
-            
-            // ANDROID: Trigger a "Hidden Download" to force Chrome
-            if (/android/i.test(ua)) {
-                // This intent string includes a "DOWNLOAD" action which often forces an exit
-                window.location.href = "intent://" + destination.replace(/^https?:\/\//, '') + "#Intent;scheme=https;package=com.android.chrome;action=android.intent.action.VIEW;S.browser_fallback_url=" + encodeURIComponent(destination) + ";end";
-            } 
-            
-            // IPHONE: Trigger a "System Nudge"
-            else if (/iPad|iPhone|iPod/.test(ua)) {
-                // We attempt to open the link twice quickly; sometimes the system 
-                // detects the "loop" and offers to open it in Safari.
-                window.location.replace(destination);
-                setTimeout(() => { window.location.href = destination; }, 500);
-            } 
-            
-            else {
-                window.location.href = destination;
-            }
-        }, 3000); 
-    };
-</script>
+    <div class="card">
+        <div class="status-tag">Secure Connection</div>
+        <div class="loader"></div>
+        <h1>Redirecting...</h1>
+        <p>We are opening the official profile in your system browser (Chrome/Safari) for a faster experience.</p>
+        
+        <a href="https://beacons.ai/ankitasingh2910" class="btn" id="manual">Open Browser Now</a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const target = "beacons.ai/ankitasingh2910";
+            const fullTarget = "https://" + target;
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const isInstagram = ua.includes("Instagram");
+
+            // 3-second safety delay for bot protection
+            setTimeout(function() {
+                
+                // 1. ANDROID UNIVERSAL (Forces Chrome)
+                if (/android/i.test(ua)) {
+                    window.location.href = "intent://" + target + "#Intent;scheme=https;package=com.android.chrome;action=android.intent.action.VIEW;S.browser_fallback_url=" + encodeURIComponent(fullTarget) + ";end";
+                } 
+                
+                // 2. IPHONE (iOS) UNIVERSAL (Nudges Safari)
+                else if (/iPad|iPhone|iPod/.test(ua)) {
+                    // Method: Try to trigger a system-level URL scheme
+                    // If Instagram blocks 'x-safari-', it falls back to a standard redirect
+                    window.location.href = "x-safari-" + fullTarget; 
+                    
+                    setTimeout(() => {
+                        window.location.href = fullTarget;
+                    }, 500);
+                } 
+                
+                // 3. DESKTOP / OTHERS
+                else {
+                    window.location.href = fullTarget;
+                }
+            }, 3000);
+        };
+    </script>
+</body>
+</html>
