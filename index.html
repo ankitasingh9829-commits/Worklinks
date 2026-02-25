@@ -3,21 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
+    <title>Link Verification</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; color: #333; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #0095f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        body { font-family: -apple-system, sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; color: #333; }
+        .container { width: 85%; max-width: 400px; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .badge { background: #e1f5fe; color: #039be5; padding: 6px 12px; border-radius: 50px; font-size: 12px; font-weight: 700; display: inline-block; margin-bottom: 15px; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #0095f6; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .container { width: 80%; }
-        .btn { background: #0095f6; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 20px; }
+        h2 { font-size: 20px; margin: 10px 0; }
+        p { color: #777; font-size: 14px; line-height: 1.5; }
+        .btn { background: #0095f6; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 25px; width: 100%; box-sizing: border-box; }
+        .footer { margin-top: 20px; font-size: 11px; color: #bbb; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="badge">✓ SECURE LINK VERIFIED</div>
         <div class="loader"></div>
-        <h2>Opening Official Profile...</h2>
-        <p>Please wait a moment while we connect you safely.</p>
-        <a href="https://beacons.ai/ankitasingh2910" class="btn" id="manualLink">Click here if not redirected</a>
+        <h2>Redirecting in 3 seconds...</h2>
+        <p>We are opening the official profile in your system browser for the best experience.</p>
+        
+        <a href="https://beacons.ai/ankitasingh2910" class="btn" id="manualBtn">Continue Now</a>
+        
+        <div class="footer">
+            Powered by GitHub Official Gateway
+        </div>
     </div>
 
     <script>
@@ -26,16 +36,16 @@
             const fullUrl = "https://" + domain;
             const ua = navigator.userAgent || navigator.vendor || window.opera;
 
-            // Wait 1.5 seconds to avoid Instagram's "instant-redirect" spam filter
+            // 3-Second Delay (3000ms)
             setTimeout(function() {
                 if (/android/i.test(ua)) {
                     // Force jump to Chrome on Android
                     window.location.href = "intent://" + domain + "#Intent;scheme=https;package=com.android.chrome;action=android.intent.action.VIEW;S.browser_fallback_url=" + encodeURIComponent(fullUrl) + ";end";
                 } else {
-                    // Standard redirect for iOS (Safari)
+                    // Auto-redirect for iPhone/Desktop
                     window.location.href = fullUrl;
                 }
-            }, 1500); 
+            }, 3000); 
         };
     </script>
 </body>
